@@ -74,8 +74,9 @@ const onKeyDown = (e) => {
   }
 };
 
-// Initialize resizer — wire all events and set starting width after first paint
+// Initialize resizer — skip entirely on mobile (≤ 600px), wire events on desktop
 function initResizer() {
+  if (window.innerWidth <= 600) return;
   resizerGrid   = document.querySelector('.body-split');
   resizerHandle = document.getElementById('resizer');
   if (!resizerGrid || !resizerHandle) return;
