@@ -147,7 +147,7 @@
   letter-spacing: 0.1em;
 }
 
-/* Preset buttons — 2×2 grid with generous gaps */
+/* Preset buttons — 2x2 grid with generous gaps */
 .preset-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -262,91 +262,99 @@ body.is-resizing #canvas {
   pointer-events: none;
 }
 
-/* ── MOBILE LAYOUT (≤ 600px) ── */
+/* ────────────────────────────────────────────
+   MOBILE LAYOUT — 600px and below
+   Controls stack on top, chart below
+───────────────────────────────────────────── */
 @media (max-width: 600px) {
 
-  /* App shell scrolls naturally on mobile — no fixed viewport height */
+  /* Allow natural page scroll on mobile */
   .app-wrapper {
     height: auto;
-    overflow: visible;
     min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: visible;
   }
 
-  /* Header shrinks padding and font */
+  /* Tighter header */
   #app-header {
     padding: 0 var(--space-4);
     height: 52px;
+    flex-wrap: nowrap;
   }
 
   .header-title {
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
+    white-space: nowrap;
   }
 
   .header-badge {
     display: none;
   }
 
-  /* Stack panels vertically: controls on top, chart below */
+  /* Switch from grid to vertical flex stack */
   .body-split {
-    display: flex;
-    flex-direction: column;
-    height: auto;
+    display: flex !important;
+    flex-direction: column !important;
+    height: auto !important;
+    min-height: 0;
   }
 
-  /* Hide the drag resizer entirely on mobile */
+  /* Hide resizer handle */
   #resizer {
-    display: none;
+    display: none !important;
   }
 
-  /* Controls panel — full width, natural height, no overflow scroll */
+  /* Controls on top — full width, natural height */
   #controls {
     order: 1;
+    width: 100%;
     min-width: unset;
     min-height: unset;
+    height: auto;
     overflow-y: visible;
-    padding: var(--space-5) var(--space-4);
+    padding: var(--space-4);
     border-right: none;
     border-bottom: 1px solid var(--border-subtle);
   }
 
-  /* Legend unpins from bottom — flows naturally in the controls column */
+  /* Legend flows naturally — no pinning */
   #legend {
     margin-top: var(--space-4);
   }
 
-  /* Preset grid stays 2 cols — fits fine on mobile */
-  .preset-grid {
-    grid-template-columns: 1fr 1fr;
+  /* Chart below controls — fixed height so bars are visible */
+  #canvas {
+    order: 2;
+    width: 100%;
+    min-width: unset;
+    min-height: unset;
+    height: 380px;
+    flex-shrink: 0;
+    padding: var(--space-4);
   }
 
-  /* Playback row wraps if screen is very narrow */
-  .playback-row {
+  /* Bar chart fills the canvas exactly */
+  #bar-chart {
+    width: 100%;
+    height: 100% !important;
+    min-height: unset;
+    flex: unset;
+  }
+
+  /* Custom input row wraps on narrow screens */
+  .custom-input-row {
     flex-wrap: wrap;
   }
 
-  /* Canvas panel — full width, fixed height for the chart */
-  #canvas {
-    order: 2;
-    min-width: unset;
-    min-height: unset;
-    padding: var(--space-4);
-    height: 360px;
-    flex-shrink: 0;
-  }
-
-  /* Bar chart fills the fixed canvas height */
-  #bar-chart {
-    height: 100%;
-    min-height: unset;
-  }
-
-  /* Custom input fills full width on mobile */
   .custom-input {
-    min-width: unset;
     width: 100%;
+    min-width: unset;
+    max-width: unset;
   }
 
-  .custom-input-row {
+  /* Playback row wraps if needed */
+  .playback-row {
     flex-wrap: wrap;
   }
 }
