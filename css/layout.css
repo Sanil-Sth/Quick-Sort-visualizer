@@ -261,3 +261,92 @@ body.is-resizing #controls,
 body.is-resizing #canvas {
   pointer-events: none;
 }
+
+/* ── MOBILE LAYOUT (≤ 600px) ── */
+@media (max-width: 600px) {
+
+  /* App shell scrolls naturally on mobile — no fixed viewport height */
+  .app-wrapper {
+    height: auto;
+    overflow: visible;
+    min-height: 100vh;
+  }
+
+  /* Header shrinks padding and font */
+  #app-header {
+    padding: 0 var(--space-4);
+    height: 52px;
+  }
+
+  .header-title {
+    font-size: var(--text-lg);
+  }
+
+  .header-badge {
+    display: none;
+  }
+
+  /* Stack panels vertically: controls on top, chart below */
+  .body-split {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+  /* Hide the drag resizer entirely on mobile */
+  #resizer {
+    display: none;
+  }
+
+  /* Controls panel — full width, natural height, no overflow scroll */
+  #controls {
+    order: 1;
+    min-width: unset;
+    min-height: unset;
+    overflow-y: visible;
+    padding: var(--space-5) var(--space-4);
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  /* Legend unpins from bottom — flows naturally in the controls column */
+  #legend {
+    margin-top: var(--space-4);
+  }
+
+  /* Preset grid stays 2 cols — fits fine on mobile */
+  .preset-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Playback row wraps if screen is very narrow */
+  .playback-row {
+    flex-wrap: wrap;
+  }
+
+  /* Canvas panel — full width, fixed height for the chart */
+  #canvas {
+    order: 2;
+    min-width: unset;
+    min-height: unset;
+    padding: var(--space-4);
+    height: 360px;
+    flex-shrink: 0;
+  }
+
+  /* Bar chart fills the fixed canvas height */
+  #bar-chart {
+    height: 100%;
+    min-height: unset;
+  }
+
+  /* Custom input fills full width on mobile */
+  .custom-input {
+    min-width: unset;
+    width: 100%;
+  }
+
+  .custom-input-row {
+    flex-wrap: wrap;
+  }
+}
